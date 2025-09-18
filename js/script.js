@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMagicCursor();
     initializeParticles();
     startCountdown();
-    setupAudioContext();
+    // Web Audio wiring is handled by the visualizer
+    setupUserGestureAudioUnlock();
     createGalaxyStars();
     setupAudioToggle();
 });
@@ -57,19 +58,93 @@ function revealSecretMessage() {
 
 // Setup Audio Toggle
 function setupAudioToggle() {
-    document.getElementById('audioToggle').addEventListener('click', () => {
-        const audio = document.getElementById('backgroundMusic');
+    const btn = document.getElementById('audioToggle');
+    const audio = document.getElementById('backgroundMusic');
+    if (!btn || !audio) return;
+
+    // Ensure sane defaults
+    audio.muted = false;
+    audio.volume = 1.0;
+
+    const tryPlay = () => {
+        // Resume AudioContext if needed
+        if (window.resumeAudioContext) {
+            window.resumeAudioContext().catch(() => {});
+        } else if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume().catch(() => {});
+        }
+        return audio.play();
+    };
+
+    const onPlaySuccess = () => {
+        isAudioPlaying = true;
+        startAudioVisualizer();
+        btn.textContent = 'Mute Audio';
+    };
+
+    const onPlayFail = (e) => {
+        console.log('Audio play failed:', e);
+        isAudioPlaying = false;
+        btn.textContent = 'Unmute Audio';
+    };
+
+    // Retry when loaded enough
+    audio.addEventListener('canplaythrough', () => {
+        if (!isAudioPlaying) {
+            tryPlay().then(onPlaySuccess).catch(() => {});
+        }
+    });
+
+    audio.addEventListener('error', () => {
+        console.log('Audio element error loading source');
+    });
+
+    btn.addEventListener('click', () => {
         if (isAudioPlaying) {
             audio.pause();
             stopAudioVisualizer();
-            document.getElementById('audioToggle').textContent = 'Unmute Audio';
+            btn.textContent = 'Unmute Audio';
+            isAudioPlaying = false;
         } else {
-            audio.play().catch(e => console.log('Audio play failed:', e));
-            startAudioVisualizer();
-            document.getElementById('audioToggle').textContent = 'Mute Audio';
+            tryPlay().then(onPlaySuccess).catch(onPlayFail);
         }
-        isAudioPlaying = !isAudioPlaying;
     });
+}
+
+// Ensure audio can start after first user gesture (autoplay policies)
+function setupUserGestureAudioUnlock() {
+    let unlocked = false;
+    const unlock = () => {
+        if (unlocked) return;
+        unlocked = true;
+        const audio = document.getElementById('backgroundMusic');
+        // Resume AudioContext if needed
+        if (window.resumeAudioContext) {
+            window.resumeAudioContext().catch(() => {});
+        } else if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume().catch(() => {});
+        }
+        // Try to play quietly without forcing if user interacted
+        if (audio) {
+            audio.muted = false;
+            audio.volume = 1.0;
+            audio.play().then(() => {
+                isAudioPlaying = true;
+                try { startAudioVisualizer(); } catch (e) {}
+                const btn = document.getElementById('audioToggle');
+                if (btn) btn.textContent = 'Mute Audio';
+            }).catch(() => {
+                // Ignore; user can start via button
+            });
+        }
+        // Remove listeners after first attempt
+        window.removeEventListener('click', unlock);
+        window.removeEventListener('keydown', unlock);
+        window.removeEventListener('touchstart', unlock);
+    };
+    window.addEventListener('click', unlock, { once: true });
+    window.addEventListener('keydown', unlock, { once: true });
+    window.addEventListener('touchstart', unlock, { once: true });
 }
 
 // Magic Cursor Implementation
@@ -496,21 +571,7 @@ function playSound(soundId) {
     }
 }
 
-function setupAudioContext() {
-    try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const audio = document.getElementById('backgroundMusic');
-        if (audio && audioContext) {
-            const source = audioContext.createMediaElementSource(audio);
-            analyser = audioContext.createAnalyser();
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            analyser.fftSize = 256;
-        }
-    } catch (e) {
-        console.log('Web Audio API not supported:', e);
-    }
-}
+// Removed duplicate setupAudioContext to avoid multiple MediaElementSource on the same element
 
 // Utility Functions
 function createParticleBurst(x, y) {

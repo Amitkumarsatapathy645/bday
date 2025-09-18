@@ -213,6 +213,16 @@ window.stopAudioVisualizer = () => {
     }
 };
 
+// Helper to resume the audio context after a user gesture
+window.resumeAudioContext = () => {
+    try {
+        if (audioVisualizer && audioVisualizer.audioContext && audioVisualizer.audioContext.state === 'suspended') {
+            return audioVisualizer.audioContext.resume();
+        }
+    } catch (e) {}
+    return Promise.resolve();
+};
+
 window.createVisualWave = (x, y) => {
     if (audioVisualizer) {
         audioVisualizer.createVisualWave(x, y);
