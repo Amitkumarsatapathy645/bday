@@ -16,6 +16,44 @@ document.addEventListener('DOMContentLoaded', function() {
     createGalaxyStars();
     setupAudioToggle();
 });
+// Add to beginning of script.js
+function detectLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            // Show romantic message based on her location
+            if (isNearSpecialPlace(lat, lon)) {
+                addLocationSurprise();
+            }
+        });
+    }
+}
+// Add face detection for extra surprise
+async function startCameraEffects() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+        
+        // Add heart overlay on her face
+        detectFaceAndAddHearts(video);
+    } catch(e) {
+        console.log('Camera not available');
+    }
+}
+
+// Hidden message that appears only on birthday
+function revealSecretMessage() {
+    const now = new Date();
+    const birthday = new Date('2025-09-19');
+    
+    if (now.toDateString() === birthday.toDateString()) {
+        const secret = "I've been planning this for weeks because you mean the world to me 💕";
+        createSecretMessageReveal(secret);
+    }
+}
 
 // Setup Audio Toggle
 function setupAudioToggle() {
