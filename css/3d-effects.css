@@ -1,0 +1,512 @@
+/* 3D Effects and Advanced Visuals */
+
+/* Stage 3: Vintage Love Letter */
+.typewriter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.vintage-paper {
+    background: 
+        linear-gradient(45deg, #f4f1de 0%, #e8dcc0 50%, #f4f1de 100%);
+    width: 800px;
+    max-width: 90vw;
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 50px rgba(139, 69, 19, 0.1);
+    position: relative;
+    color: #2c1810;
+    font-family: 'Playfair Display', serif;
+    transform: perspective(1000px) rotateX(5deg);
+    border: 3px solid #d4a574;
+}
+
+.vintage-paper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.1), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.1), transparent 40%),
+        radial-gradient(circle at 60% 20%, rgba(139, 69, 19, 0.05), transparent 30%);
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+.paper-header {
+    text-align: right;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #d4a574;
+    padding-bottom: 20px;
+}
+
+.date {
+    font-size: 1.1rem;
+    color: #8b4513;
+    margin-bottom: 10px;
+}
+
+.to-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #d2691e;
+}
+
+.typewriter-content {
+    min-height: 300px;
+    font-size: 1.2rem;
+    line-height: 2;
+    margin-bottom: 40px;
+}
+
+.signature-section {
+    text-align: right;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #d4a574;
+}
+
+.signature-text {
+    font-style: italic;
+    color: #8b4513;
+}
+
+.signature-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #d2691e;
+    margin-top: 10px;
+}
+
+/* Stage 4: Holographic Photo Gallery */
+.gallery-container {
+    text-align: center;
+    max-width: 1200px;
+    padding: 40px 20px;
+}
+
+.gallery-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 60px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+}
+
+.holographic-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    perspective: 1500px;
+}
+
+.photo-card {
+    width: 320px;
+    height: 420px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0.6;
+    transform: scale(0.9) rotateY(20deg);
+}
+
+.photo-card.active {
+    opacity: 1;
+    transform: scale(1.1) rotateY(0deg) translateZ(50px);
+    z-index: 10;
+}
+
+.photo-card:not(.active):hover {
+    opacity: 0.8;
+    transform: scale(0.95) rotateY(10deg);
+}
+
+.photo-frame {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    background: 
+        linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3)),
+        linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(255, 107, 107, 0.2));
+    border-radius: 20px;
+    padding: 15px;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: all 0.5s ease;
+}
+
+.photo-frame:hover img {
+    transform: scale(1.05);
+}
+
+.photo-caption {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #fff;
+    font-style: italic;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.gallery-controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.holo-btn {
+    background: 
+        linear-gradient(45deg, transparent, rgba(78, 205, 196, 0.3), transparent),
+        linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(69, 183, 209, 0.2));
+    border: 2px solid rgba(78, 205, 196, 0.5);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+}
+
+.holo-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(78, 205, 196, 0.4);
+    border-color: rgba(78, 205, 196, 0.8);
+}
+
+.photo-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #4ecdc4;
+    box-shadow: 0 0 20px #4ecdc4;
+    transform: scale(1.2);
+}
+
+/* Stage 5: Interactive Timeline */
+.timeline-container {
+    max-width: 1000px;
+    padding: 40px 20px;
+    margin: 0 auto;
+}
+
+.timeline-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 80px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+.love-timeline {
+    position: relative;
+    padding: 40px 0;
+}
+
+.love-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 80px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.timeline-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
+    transition: all 0.5s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    transform: translateX(-50%) scale(1.5);
+    box-shadow: 0 0 50px rgba(255, 107, 107, 0.8);
+}
+
+.timeline-content {
+    width: 45%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #ff6b6b;
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.timeline-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.timeline-date {
+    font-size: 0.9rem;
+    color: #4ecdc4;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Stage 6: Ultimate Birthday Finale */
+.finale-container {
+    text-align: center;
+    max-width: 1000px;
+    padding: 40px 20px;
+    position: relative;
+}
+
+/* Audio Visualizer */
+.audio-visualizer {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 5px;
+    height: 100px;
+    margin-bottom: 50px;
+    opacity: 0.7;
+}
+
+.visualizer-bar {
+    width: 8px;
+    background: linear-gradient(to top, #ff6b6b, #4ecdc4);
+    border-radius: 4px;
+    animation: visualizerPulse 0.5s ease-in-out infinite alternate;
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.visualizer-bar:nth-child(1) { animation-delay: 0s; }
+.visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
+.visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+.visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
+.visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
+.visualizer-bar:nth-child(6) { animation-delay: 0.5s; }
+.visualizer-bar:nth-child(7) { animation-delay: 0.6s; }
+.visualizer-bar:nth-child(8) { animation-delay: 0.7s; }
+
+@keyframes visualizerPulse {
+    0% { height: 20px; }
+    100% { height: 80px; }
+}
+
+/* 3D Cake */
+.cake-3d-container {
+    perspective: 1000px;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.final-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    margin-bottom: 40px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+}
+
+.birthday-poem {
+    margin-bottom: 40px;
+    font-size: 1.3rem;
+    line-height: 2;
+}
+
+.poem-line {
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.poem-line:nth-child(1) { animation-delay: 0.5s; }
+.poem-line:nth-child(2) { animation-delay: 1s; }
+.poem-line:nth-child(3) { animation-delay: 1.5s; }
+.poem-line:nth-child(4) { animation-delay: 2s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.final-message {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.special-note {
+    color: #4ecdc4;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+}
+
+.celebration-mega-btn {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    background-size: 300% 300%;
+    color: white;
+    border: none;
+    padding: 20px 50px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease;
+    animation: gradientShift 3s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.celebration-mega-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 25px 60px rgba(255, 107, 107, 0.6);
+}
+
+.celebration-mega-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.celebration-mega-btn:hover::before {
+    left: 100%;
+}
+
+/* Responsive Design for 3D Effects */
+@media (max-width: 768px) {
+    .photo-card {
+        width: 280px;
+        height: 360px;
+    }
+    
+    .timeline-content {
+        width: 80%;
+    }
+    
+    .love-timeline::before {
+        left: 30px;
+    }
+    
+    .timeline-dot {
+        left: 30px;
+        transform: translateX(-50%);
+    }
+    
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        flex-direction: row;
+        padding-left: 80px;
+    }
+    
+    .final-title {
+        font-size: 2.5rem;
+    }
+    
+    .cake-3d-container {
+        width: 200px;
+        height: 200px;
+    }
+}

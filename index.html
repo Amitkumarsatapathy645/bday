@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ A Magical Journey For My Love ✨</title>
+    
+    <!-- Enhanced Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/3d-effects.css">
+    
+    <!-- Three.js for 3D Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <!-- Magic Cursor -->
+    <div id="magicCursor">
+        <div class="cursor-trail"></div>
+    </div>
+
+    <!-- Background Galaxy -->
+    <div id="galaxy-container"></div>
+    
+    <!-- Particle System -->
+    <div id="particles-js"></div>
+
+    <!-- Audio Elements -->
+    <audio id="backgroundMusic" loop>
+        <source src="assets/audio/birthday-song.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="heartBeat">
+        <source src="assets/audio/heart-beat.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="surpriseSound">
+        <source src="assets/audio/surprise-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio Toggle Button -->
+    <button id="audioToggle" class="holo-btn" aria-label="Toggle Audio">Toggle Audio</button>
+
+    <!-- Stage 1: Countdown & Welcome -->
+    <div class="stage active" id="stage1">
+        <div class="countdown-container">
+            <div class="cosmic-title">
+                <h1 class="glitch-text">Something Magical Awaits...</h1>
+                <div class="subtitle-glow">A journey through our universe of love</div>
+            </div>
+            
+            <div class="countdown-timer" id="countdown" data-birthday="2025-09-19T00:00:00">
+                <div class="time-unit">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="time-unit">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="time-unit">
+                    <span id="minutes">00</span>
+                    <label>Minutes</label>
+                </div>
+                <div class="time-unit">
+                    <span id="seconds">00</span>
+                    <label>Seconds</label>
+                </div>
+            </div>
+            
+            <div class="holographic-button" onclick="startJourney()" aria-label="Begin Our Journey">
+                <span class="button-text">Begin Our Journey</span>
+                <div class="button-particles"></div>
+            </div>
+        </div>
+        
+        <!-- Floating 3D Hearts -->
+        <div class="floating-3d-hearts"></div>
+    </div>
+
+    <!-- Stage 2: 3D Heart Explosion -->
+    <div class="stage" id="stage2">
+        <div class="heart-explosion-container">
+            <div class="center-message">
+                <h2 class="explosion-title">My Heart Belongs To You</h2>
+                <div class="heart-3d-explosion" id="heart3D"></div>
+                <p class="love-quote">"In a sea of people, my eyes will always search for you..."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 3: Interactive Love Letter -->
+    <div class="stage" id="stage3">
+        <div class="typewriter-container">
+            <div class="vintage-paper">
+                <div class="paper-header">
+                    <div class="date">September 19th, 2025</div>
+                    <div class="to-line">To My Beautiful Girlfriend 💕</div>
+                </div>
+                
+                <div class="typewriter-content" id="loveLetterContent">
+                    <!-- Content will be typed here -->
+                </div>
+                
+                <div class="signature-section" style="display: none;" id="signature">
+                    <div class="signature-line">
+                        <span class="signature-text">Forever yours,</span>
+                        <div class="signature-name">Your Love 💖</div>
+                    </div>
+                </div>
+                
+                <button class="next-stage-btn hidden" onclick="nextStage(4)" id="letterBtn" aria-label="Continue to Memories">
+                    Continue to Memories 📸
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stage 4: Holographic Photo Gallery -->
+    <div class="stage" id="stage4">
+        <div class="gallery-container">
+            <h2 class="gallery-title">Our Beautiful Memories</h2>
+            <div class="holographic-gallery">
+                <div class="photo-card active" data-index="0">
+                    <div class="photo-frame">
+                        <img src="assets/images/her-photos/photo1.jpg" alt="Memory 1" onerror="this.src='https://via.placeholder.com/400x300/ff69b4/white?text=Add+Photo+1'">
+                        <div class="hologram-effect"></div>
+                    </div>
+                    <div class="photo-caption">The moment I knew you were special</div>
+                </div>
+                
+                <div class="photo-card" data-index="1">
+                    <div class="photo-frame">
+                        <img src="assets/images/her-photos/photo2.jpg" alt="Memory 2" onerror="this.src='https://via.placeholder.com/400x300/ff1493/white?text=Add+Photo+2'">
+                        <div class="hologram-effect"></div>
+                    </div>
+                    <div class="photo-caption">Every smile tells our story</div>
+                </div>
+                
+                <div class="photo-card" data-index="2">
+                    <div class="photo-frame">
+                        <img src="assets/images/her-photos/photo3.jpg" alt="Memory 3" onerror="this.src='https://via.placeholder.com/400x300/ff6347/white?text=Add+Photo+3'">
+                        <div class="hologram-effect"></div>
+                    </div>
+                    <div class="photo-caption">Creating memories, one day at a time</div>
+                </div>
+            </div>
+            
+            <div class="gallery-controls">
+                <button class="holo-btn" onclick="changePhoto(-1)" aria-label="Previous Photo">◀ Previous</button>
+                <button class="holo-btn" onclick="changePhoto(1)" aria-label="Next Photo">Next ▶</button>
+            </div>
+            
+            <div class="photo-indicator">
+                <span class="indicator active" data-index="0" tabindex="0"></span>
+                <span class="indicator" data-index="1" tabindex="0"></span>
+                <span class="indicator" data-index="2" tabindex="0"></span>
+            </div>
+            
+            <button class="next-stage-btn" onclick="nextStage(5)" aria-label="Go to The Grand Surprise">
+                The Grand Surprise! 🎉
+            </button>
+        </div>
+    </div>
+
+    <!-- Stage 5: Interactive Timeline -->
+    <div class="stage" id="stage5">
+        <div class="timeline-container">
+            <h2 class="timeline-title">Our Love Story</h2>
+            <div class="love-timeline">
+                <div class="timeline-item" onclick="activateTimelineItem(0)" tabindex="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>The Day We Met</h3>
+                        <p>When destiny brought us together...</p>
+                        <div class="timeline-date">Day 1</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" onclick="activateTimelineItem(1)" tabindex="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>First Date</h3>
+                        <p>Nervous butterflies, endless smiles...</p>
+                        <div class="timeline-date">The Beginning</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" onclick="activateTimelineItem(2)" tabindex="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Falling in Love</h3>
+                        <p>When I knew you were the one...</p>
+                        <div class="timeline-date">Forever</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" onclick="activateTimelineItem(3)" tabindex="0">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Today & Beyond</h3>
+                        <p>Every day is a new adventure with you...</p>
+                        <div class="timeline-date">Eternal</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="next-stage-btn" onclick="nextStage(6)" aria-label="Go to Birthday Celebration">
+                Birthday Celebration! 🎂
+            </button>
+        </div>
+    </div>
+
+    <!-- Stage 6: Ultimate Birthday Finale -->
+    <div class="stage" id="stage6">
+        <div class="finale-container">
+            <!-- Audio Visualizer -->
+            <div class="audio-visualizer" id="audioVisualizer">
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+            </div>
+            
+            <!-- 3D Cake Container -->
+            <div class="cake-3d-container"></div>
+            
+            <div class="birthday-finale">
+                <h1 class="final-title">Happy Birthday Beautiful! 🎉</h1>
+                
+                <div class="birthday-poem">
+                    <div class="poem-line">On this special day of yours, my love,</div>
+                    <div class="poem-line">I wish you joy from stars above,</div>
+                    <div class="poem-line">May every dream you dream come true,</div>
+                    <div class="poem-line">And know that I'm here loving you! 💕</div>
+                </div>
+                
+                <div class="final-message">
+                    <p>You bring magic into every ordinary day, turning moments into memories and dreams into reality. Your laughter is my favorite song, your smile my greatest treasure.</p>
+                    
+                    <p>As you celebrate another year of your amazing life, know that you are cherished, loved, and celebrated not just today, but every single day.</p>
+                    
+                    <p class="special-note">Here's to many more birthdays together, creating beautiful memories and sharing endless love! 🥳</p>
+                </div>
+                
+                <button class="celebration-mega-btn" onclick="megaCelebration()" aria-label="Blow Out the Candles">
+                    🎊 BLOW OUT THE CANDLES! 🎊
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fireworks Container -->
+    <div id="fireworks-container"></div>
+    
+    <!-- Confetti Container -->
+    <div id="confetti-canvas"></div>
+
+    <!-- Include JavaScript Files -->
+    <script src="js/particles.js"></script>
+    <script src="js/typewriter.js"></script>
+    <script src="js/audio-visualizer.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

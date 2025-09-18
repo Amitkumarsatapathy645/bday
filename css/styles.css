@@ -1,0 +1,301 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background: #000;
+    cursor: none; /* Hide default cursor for magic cursor */
+}
+
+/* Magic Cursor */
+#magicCursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ff6b6b, #4ecdc4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 20px #ff6b6b;
+}
+
+.cursor-trail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    animation: cursorTrail 0.8s ease-out infinite;
+}
+
+@keyframes cursorTrail {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+/* Galaxy Background */
+#galaxy-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #ddd, transparent),
+        linear-gradient(45deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+    animation: galaxyRotate 20s linear infinite;
+}
+
+@keyframes galaxyRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Particles Background */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Audio Toggle Button */
+#audioToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Stage Management */
+.stage {
+    display: none;
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    color: white;
+}
+
+.stage.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: stageEnter 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes stageEnter {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.8) rotateY(90deg);
+        filter: blur(20px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) rotateY(0deg);
+        filter: blur(0px);
+    }
+}
+
+/* Stage 1: Countdown */
+.countdown-container {
+    text-align: center;
+    z-index: 10;
+}
+
+.cosmic-title h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+}
+
+.subtitle-glow {
+    font-size: 1.3rem;
+    margin-bottom: 50px;
+    opacity: 0.9;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.time-unit {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 25px;
+    min-width: 100px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.time-unit span {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ff6b6b;
+    text-shadow: 0 0 20px #ff6b6b;
+}
+
+.time-unit label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Holographic Button */
+.holographic-button {
+    position: relative;
+    display: inline-block;
+    padding: 20px 40px;
+    background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.2), transparent);
+    border: 2px solid #ff6b6b;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 0 20px rgba(255, 107, 107, 0.3),
+        inset 0 0 20px rgba(255, 107, 107, 0.1);
+}
+
+.holographic-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 35px rgba(255, 107, 107, 0.4),
+        inset 0 0 30px rgba(255, 107, 107, 0.2);
+}
+
+.button-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+}
+
+.button-particles {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: buttonShine 2s ease-in-out infinite;
+}
+
+@keyframes buttonShine {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* Stage 2: 3D Heart Explosion */
+.heart-explosion-container {
+    text-align: center;
+    perspective: 1000px;
+}
+
+.explosion-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    margin-bottom: 50px;
+    color: #ff6b6b;
+    text-shadow: 0 0 30px #ff6b6b;
+}
+
+.heart-3d-explosion {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 40px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: heartRotate 4s ease-in-out infinite;
+}
+
+@keyframes heartRotate {
+    0%, 100% { transform: rotateY(0deg) rotateX(0deg); }
+    25% { transform: rotateY(90deg) rotateX(45deg); }
+    50% { transform: rotateY(180deg) rotateX(0deg); }
+    75% { transform: rotateY(270deg) rotateX(-45deg); }
+}
+
+.love-quote {
+    font-style: italic;
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* Next Stage Button */
+.next-stage-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+    margin-top: 30px;
+}
+
+.next-stage-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cosmic-title h1 {
+        font-size: 2.5rem;
+    }
+    
+    .countdown-timer {
+        gap: 15px;
+    }
+    
+    .time-unit {
+        padding: 15px;
+        min-width: 80px;
+    }
+    
+    .time-unit span {
+        font-size: 2rem;
+    }
+    
+    .explosion-title {
+        font-size: 2rem;
+    }
+}
